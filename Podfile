@@ -7,8 +7,8 @@ inhibit_all_warnings!
 
 def commonpods
   pod 'IP-UIKit-Wisdom'
-    pod 'RxSwift', '~> 4.5'
-    pod 'RxCocoa', '~> 4.5'
+    pod 'RxSwift', '5.1.1'
+    pod 'RxCocoa', '5.1.1'
 end
 
 target 'SwiftWisdom' do
