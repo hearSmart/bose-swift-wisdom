@@ -9,27 +9,27 @@ class OperatorTests: XCTestCase {
     func testVariableBinding() {
         let disposeBag = DisposeBag()
         let label = UILabel()
-        let variable = Variable<String?>(nil)
+        let variable = BehaviorRelay<String?>(value: nil)
 
         label.rx.text <- variable >>> disposeBag
         XCTAssertEqual(nil, label.text)
 
-        variable.value = "hello"
+        variable.accept("hello")
         XCTAssertEqual("hello", label.text)
 
-        variable.value = nil
+        variable.accept(nil)
         XCTAssertEqual(nil, label.text)
     }
 
     func testNonOptionalVariableBindingToOptionalObserver() {
         let disposeBag = DisposeBag()
         let label = UILabel()
-        let variable = Variable<String>("")
+        let variable = BehaviorRelay<String>(value: "")
 
         label.rx.text <- variable >>> disposeBag
         XCTAssertEqual("", label.text)
 
-        variable.value = "hello"
+        variable.accept("hello")
         XCTAssertEqual("hello", label.text)
     }
 
@@ -44,14 +44,14 @@ class OperatorTests: XCTestCase {
 
     func testBindingToVariable() {
         let disposeBag = DisposeBag()
-        let sut = Variable<String>("")
-        let variable = Variable<String>("hello")
+        let sut = BehaviorRelay<String>(value: "")
+        let variable = BehaviorRelay<String>(value: "hello")
 
         sut <- variable >>> disposeBag
         XCTAssertEqual(variable.value, sut.value)
         XCTAssertEqual("hello", sut.value)
 
-        variable.value = "world"
+        variable.accept("world")
         XCTAssertEqual(variable.value, sut.value)
     }
 
@@ -120,10 +120,10 @@ class OperatorTests: XCTestCase {
     func testTwoWayBindingWithVariable() {
         let disposeBag = DisposeBag()
         let textField = UITextField()
-        let variable = Variable<String?>(nil)
+        let variable = BehaviorRelay<String?>(value: nil)
         
         textField.rx.text <-> variable >>> disposeBag
-        variable.value = "hello"
+        variable.accept("hello")
         XCTAssertEqual("hello", textField.text)
         
         textField.text = "world"
