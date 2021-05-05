@@ -25,9 +25,9 @@ extension ObservableType {
      */
     public func ip_repeatingTimeouts(
             interval dueTime: RxTimeInterval,
-            element: E,
+            element: Element,
             scheduler: SchedulerType = MainScheduler.instance
-        ) -> Observable<E> {
+        ) -> Observable<Element> {
         return
             Observable.of(
                 asObservable(),

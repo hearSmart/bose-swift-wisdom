@@ -114,6 +114,7 @@ extension UIView {
         }
     }
 
+    // swiftlint:disable implicit_getter
     var ip_frameTopCenter: CGPoint {
         get {
             return CGPoint(x: ip_frameMidX, y: ip_frameY)
@@ -123,6 +124,7 @@ extension UIView {
             ip_frameMidX = newTopCenter.x
         }
     }
+    // swiftlint:enable implicit_getter
 }
 
 extension UIView {
