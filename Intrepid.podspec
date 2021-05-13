@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.source        = { :git => "https://github.com/IntrepidPursuits/swift-wisdom.git", :tag => "#{s.version}" }
   s.exclude_files = "tests/**/*"
   s.platform      = :ios
-  s.ios.deployment_target = "12.0"
+  s.ios.deployment_target = "12.1"
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '5.4' }
   s.default_subspec = "Core"
   s.swift_versions = ['4.2', '5.0', '5.1', '5.2', '5.3', '5.4']
@@ -37,7 +37,7 @@ Pod::Spec.new do |s|
 
   s.subspec "Rx" do |rx|
     rx.source_files = "SwiftWisdom/Rx/**/**/*.swift"
-    rx.dependency 'RxSwift', '6.1.0'
-    rx.dependency 'RxCocoa', '6.1.0'
+    rx.dependency 'RxSwift', '6.2.0'
+    rx.dependency 'RxCocoa', '6.2.0'
   end
 end
