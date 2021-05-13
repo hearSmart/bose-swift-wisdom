@@ -36,9 +36,9 @@ final class RxDelayElementsTests: XCTestCase {
         let correctEvents: [Recorded<Event<Int>>] = [
             Recorded(time: 0, value: .next(0)),
             Recorded(time: 1, value: .next(1)),
-            Recorded(time: 4, value: .next(2)),
-            Recorded(time: 5, value: .next(3)),
-            Recorded(time: 6, value: .next(4))
+            Recorded(time: 3, value: .next(2)),
+            Recorded(time: 4, value: .next(3)),
+            Recorded(time: 5, value: .next(4))
         ]
         for event in observer.events {
             XCTAssert(correctEvents.contains { $0 == event })
@@ -67,10 +67,10 @@ final class RxDelayElementsTests: XCTestCase {
 
         let correctEvents: [Recorded<Event<Int>>] = [
             Recorded(time: 1, value: .next(1)),
-            Recorded(time: 2, value: .next(0)),
+            Recorded(time: 1, value: .next(0)),
             Recorded(time: 3, value: .next(3)),
-            Recorded(time: 4, value: .next(2)),
-            Recorded(time: 6, value: .next(4))
+            Recorded(time: 3, value: .next(2)),
+            Recorded(time: 5, value: .next(4))
         ]
         for event in observer.events {
             XCTAssert(correctEvents.contains { $0 == event })
