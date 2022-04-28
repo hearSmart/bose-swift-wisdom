@@ -79,6 +79,25 @@ public final class DirectoryManager {
         try fileManager.removeItem(atPath: path)
     }
 
+    // MARK: Delete Items matching pattern
+
+    public func deleteItems(startingWith: String, notIn exclusionList: [String], completion: @escaping (Result<Int, Swift.Error>) -> Void) {
+        guard let path = directoryUrl.path else { return }
+        let all = try? fileManager.subpathsOfDirectory(atPath: path)
+        _ = all?.drop(while: { (filename) -> Bool in
+            !filename.starts(with: startingWith)
+        })
+        guard let fileList = all else { return }
+        var numDeleted = 0
+        for file in fileList {
+            if !exclusionList.contains(file) {
+                try? deleteFile(withName: file)
+                numDeleted += 1
+            }
+        }
+        completion(.success(numDeleted))
+    }
+
     // MARK: Fetch
 
     public func fetchFile(withName fileName: String) -> Data? {

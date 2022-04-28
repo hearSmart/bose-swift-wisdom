@@ -23,13 +23,13 @@ final class RxRepeatingTimeoutsTests: XCTestCase {
         let scheduler = TestScheduler(initialClock: 0)
         let observable: Observable<TestElement> =
             scheduler.createColdObservable([
-                next(8, .element),
-                next(9, .element),
-                next(15, .element),
-                next(16, .element)
+                Recorded.next(8, .element),
+                Recorded.next(9, .element),
+                Recorded.next(15, .element),
+                Recorded.next(16, .element)
             ])
             .ip_repeatingTimeouts(
-                interval: 5,
+                interval: RxTimeInterval.milliseconds(5),
                 element: .timeout,
                 scheduler: scheduler
             )
@@ -37,13 +37,21 @@ final class RxRepeatingTimeoutsTests: XCTestCase {
         observable.bind(to: observer) >>> bag
         scheduler.start()
 
+//        let correctEvents: [Recorded<Event<TestElement>>] = [
+//            Recorded(time: 8, value: .next(.element)),
+//            Recorded(time: 9, value: .next(.element)),
+//            Recorded(time: 14, value: .next(.timeout)),
+//            Recorded(time: 15, value: .next(.element)),
+//            Recorded(time: 16, value: .next(.element)),
+//            Recorded(time: 21, value: .next(.timeout))
+//        ]
         let correctEvents: [Recorded<Event<TestElement>>] = [
             Recorded(time: 8, value: .next(.element)),
             Recorded(time: 9, value: .next(.element)),
-            Recorded(time: 14, value: .next(.timeout)),
+            Recorded(time: 10, value: .next(.timeout)),
             Recorded(time: 15, value: .next(.element)),
             Recorded(time: 16, value: .next(.element)),
-            Recorded(time: 21, value: .next(.timeout))
+            Recorded(time: 17, value: .next(.timeout))
         ]
         for event in observer.events {
             XCTAssert(correctEvents.contains { $0 == event })

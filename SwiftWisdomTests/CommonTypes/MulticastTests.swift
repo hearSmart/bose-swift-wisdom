@@ -9,7 +9,7 @@
 import XCTest
 @testable import SwiftWisdom
 
-@objc private protocol BroadcasterDelegate: class {
+@objc private protocol BroadcasterDelegate: AnyObject {
     func broadcaster(_ broadcaster: Broadcaster, broadcasted message: String)
 }
 
